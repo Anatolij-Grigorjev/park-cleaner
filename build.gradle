@@ -26,6 +26,9 @@ allprojects {
         ashleyVersion = '1.7.4'
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.2.1'
+        //TEST
+        junitVersion = '5.8.2'
+        mockitoVersion = '2.23.4'
     }
 
     repositories {
@@ -61,5 +64,31 @@ project(":core") {
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         
+    }
+}
+
+project(":tests") {
+    apply plugin: "java"
+
+    sourceSets.test.java.srcDirs = ["src/"]
+
+    dependencies {
+
+        implementation project(":core")
+
+        implementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+        implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+        implementation "org.mockito:mockito-core:$mockitoVersion"
+
+        implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+        testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+        testImplementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+        testImplementation "org.mockito:mockito-core:$mockitoVersion"
+
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }
