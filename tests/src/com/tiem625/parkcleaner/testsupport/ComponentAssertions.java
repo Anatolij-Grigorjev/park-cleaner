@@ -3,9 +3,7 @@ package com.tiem625.parkcleaner.testsupport;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,7 +30,9 @@ public class ComponentAssertions {
     }
 
 
-    private static String classNames(Collection<Class<? extends Component>> classes) {
-        return classes.stream().map(Class::getSimpleName).collect(Collectors.joining(", "));
+    public static String classNames(Collection<? extends Class<?>> classes) {
+        return Optional.ofNullable(classes)
+                .orElse(List.of())
+                .stream().map(Class::getSimpleName).collect(Collectors.joining(", ", "[", "]"));
     }
 }

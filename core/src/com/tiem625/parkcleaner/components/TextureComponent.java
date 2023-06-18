@@ -1,6 +1,9 @@
 package com.tiem625.parkcleaner.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.graphics.Texture;
 
-public record TextureComponent() implements Component {
+public class TextureComponent implements Component {
+
+    public Texture texture;
 }
