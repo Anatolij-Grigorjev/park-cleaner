@@ -36,6 +36,6 @@ public class BasketTests {
     @Test
     public void new_basket_has_set_position() {
         var positionComponent = basket.getComponent(PositionComponent.class);
-        Assertions.assertEquals(positionComponent.data, Position.ZERO);
+        Assertions.assertEquals(positionComponent.position(), Position.ZERO);
     }
 }
