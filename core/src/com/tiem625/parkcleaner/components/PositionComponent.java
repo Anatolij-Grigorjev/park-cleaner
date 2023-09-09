@@ -26,4 +26,8 @@ public class PositionComponent implements Component {
     public void adjustPositionBy(float x, float y) {
         this.position = position.translatedBy(x, y);
     }
+
+    public void adjustPositionBy(Position amount) {
+        adjustPositionBy(amount.x(), amount.y());
+    }
 }

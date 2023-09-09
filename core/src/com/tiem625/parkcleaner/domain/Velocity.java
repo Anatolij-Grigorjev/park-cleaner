@@ -30,7 +30,19 @@ public class Velocity {
     }
 
     public Vector2 vector() {
-        return vector;
+        return vector.cpy();
+    }
+
+    public Position position() {
+        return Position.of(vector.x, vector.y);
+    }
+
+    public Velocity withImpulse(Vector2 impulse) {
+        return Velocity.of(vector().add(impulse));
+    }
+
+    public Velocity scaledBy(float scale) {
+        return Velocity.of(vector().scl(scale));
     }
 
     @Override

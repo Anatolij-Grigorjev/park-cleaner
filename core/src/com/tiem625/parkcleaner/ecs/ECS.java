@@ -2,10 +2,11 @@ package com.tiem625.parkcleaner.ecs;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
+import com.badlogic.ashley.core.Engine;
 import com.tiem625.parkcleaner.Reflections;
 
-import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class ECS {
@@ -14,21 +15,23 @@ public class ECS {
         throw new UnsupportedOperationException("global holder");
     }
 
-    private static final Map<? extends Class<? extends Component>, ComponentMapper<?>> MAPPERS;
+    private static final ComponentMappersMap MAPPERS;
+    private static final Engine engine = new Engine();
+
     static {
         Set<Class<? extends Component>> classes = Reflections
                 .classNamesInPackage("com.tiem625.parkcleaner.components")
                 .filter(fullClassName -> fullClassName.endsWith("Component"))
                 .map(ECS::asComponentClass)
                 .collect(Collectors.toSet());
-        MAPPERS = classes.stream()
-                .map(componentClass -> Map.entry(componentClass, ComponentMapper.getFor(componentClass)))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        MAPPERS = new ComponentMappersMap();
+        classes.forEach(componentClazz -> MAPPERS.put(componentClazz, ComponentMapper.getFor(componentClazz)));
     }
 
-    public static Map<? extends Class<? extends Component>, ComponentMapper<?>> mappers() {
+    public static ComponentMappersMap mappers() {
         return MAPPERS;
     }
+    public static Engine engine() { return engine; }
 
     private static Class<? extends Component> asComponentClass(String fullClassName) {
         try {
@@ -40,6 +43,13 @@ public class ECS {
             }
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static class ComponentMappersMap extends ConcurrentHashMap<Class<? extends Component>, ComponentMapper<?>> {
+
+        public <C extends Component> ComponentMapper<C> get(Class<C> key) {
+            return (ComponentMapper<C>) super.get(key);
         }
     }
 }
