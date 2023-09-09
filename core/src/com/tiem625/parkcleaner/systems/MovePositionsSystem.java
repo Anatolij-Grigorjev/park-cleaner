@@ -11,8 +11,8 @@ import com.tiem625.parkcleaner.ecs.ECS;
 public class MovePositionsSystem extends IteratingSystem {
 
     private static final Family MOVING_POSITIONS = Family.all(VelocityComponent.class, PositionComponent.class).get();
-    private static final ComponentMapper<PositionComponent> EntityPosition = ECS.mappers().get(PositionComponent.class);
-    private static final ComponentMapper<VelocityComponent> EntityVelocity = ECS.mappers().get(VelocityComponent.class);
+    private static final ComponentMapper<PositionComponent> EntityPosition = ECS.mapperFor(PositionComponent.class);
+    private static final ComponentMapper<VelocityComponent> EntityVelocity = ECS.mapperFor(VelocityComponent.class);
 
     public MovePositionsSystem() {
         super(MOVING_POSITIONS);
