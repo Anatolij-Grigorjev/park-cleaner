@@ -11,6 +11,13 @@ public class EntitySupport extends Entity {
 
     protected transient boolean processingInEngine = false;
 
+    public Entity addAll(Component... components) {
+        for (Component component : components) {
+            add(component);
+        }
+        return this;
+    }
+
     public <T extends Component> Optional<T> findComponent(Class<T> componentClazz) {
         return Optional.ofNullable(getComponent(componentClazz));
     }

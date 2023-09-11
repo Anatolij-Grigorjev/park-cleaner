@@ -10,9 +10,11 @@ import com.tiem625.parkcleaner.ecs.EntitySupport;
 public class Basket extends EntitySupport {
 
     public Basket(float posX, float posY) {
-        this.add(new TextureComponent());
-        this.add(new PlayerInputComponent());
-        this.add(new VelocityComponent());
-        this.add(new PositionComponent(Position.of(posX, posY)));
+        this.addAll(
+                new TextureComponent(),
+                new PlayerInputComponent(),
+                new VelocityComponent(),
+                new PositionComponent(Position.of(posX, posY))
+        );
     }
 }

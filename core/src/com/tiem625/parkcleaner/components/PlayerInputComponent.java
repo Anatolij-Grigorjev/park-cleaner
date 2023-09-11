@@ -1,18 +1,18 @@
 package com.tiem625.parkcleaner.components;
 
 import com.badlogic.ashley.core.Component;
+import com.tiem625.parkcleaner.Inputs;
 import com.tiem625.parkcleaner.domain.GameKey;
 
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PlayerInputComponent implements Component {
 
-    private static final Map<GameKey, Boolean> KEYPRESS_MAP = Stream.<String>of(
-
-            ).map(GameKey::new).map(gameKey -> Map.entry(gameKey, false))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    private static final Map<GameKey, Boolean> KEYPRESS_MAP = Inputs.INPUT_MAPPINGS
+            .keySet().stream()
+            .map(gameKey -> Map.entry(gameKey, false))
+            .collect(Collectors.toConcurrentMap(Map.Entry::getKey, Map.Entry::getValue));
 
     public void pressKey(GameKey key) {
         KEYPRESS_MAP.put(key, true);
@@ -24,5 +24,9 @@ public class PlayerInputComponent implements Component {
 
     public boolean isKeyPressed(GameKey key) {
         return KEYPRESS_MAP.get(key);
+    }
+
+    public void releaseAllKeys() {
+        KEYPRESS_MAP.keySet().forEach(this::releaseKey);
     }
 }
