@@ -9,8 +9,7 @@ import java.util.stream.Collectors;
 
 public class PlayerInputComponent implements Component {
 
-    private static final Map<GameKey, Boolean> KEYPRESS_MAP = Inputs.INPUT_MAPPINGS
-            .keySet().stream()
+    private static final Map<GameKey, Boolean> KEYPRESS_MAP = Inputs.current().stream()
             .map(gameKey -> Map.entry(gameKey, false))
             .collect(Collectors.toConcurrentMap(Map.Entry::getKey, Map.Entry::getValue));
 
