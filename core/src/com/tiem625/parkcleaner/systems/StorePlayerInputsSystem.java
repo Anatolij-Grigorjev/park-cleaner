@@ -15,7 +15,7 @@ public class StorePlayerInputsSystem extends IteratingSystem {
     private static final ComponentMapper<PlayerInputComponent> EntityPlayerControls = ECS.mapperFor(PlayerInputComponent.class);
     public static final Family PLAYER_CONTROLLED_FAMILY = Family.all(PlayerInputComponent.class).get();
 
-    public StorePlayerInputsSystem(Family family) {
+    public StorePlayerInputsSystem() {
         super(PLAYER_CONTROLLED_FAMILY);
     }
 
