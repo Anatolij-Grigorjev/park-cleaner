@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.tiem625.parkcleaner.components.PositionComponent;
 import com.tiem625.parkcleaner.components.VelocityComponent;
-import com.tiem625.parkcleaner.ecs.ECS;
+import com.tiem625.parkcleaner.ecsbase.ECS;
 
 public class MovePositionsSystem extends IteratingSystem {
 

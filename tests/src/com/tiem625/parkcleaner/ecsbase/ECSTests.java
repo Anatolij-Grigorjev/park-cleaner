@@ -1,4 +1,4 @@
-package com.tiem625.parkcleaner.ecs;
+package com.tiem625.parkcleaner.ecsbase;
 
 import com.tiem625.parkcleaner.components.PositionComponent;
 import org.junit.jupiter.api.Assertions;

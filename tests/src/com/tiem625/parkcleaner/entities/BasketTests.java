@@ -1,4 +1,4 @@
-package com.tiem625.parkcleaner.basket;
+package com.tiem625.parkcleaner.entities;
 
 import com.badlogic.gdx.math.Vector2;
 import com.tiem625.parkcleaner.components.PlayerInputComponent;
@@ -6,7 +6,7 @@ import com.tiem625.parkcleaner.components.PositionComponent;
 import com.tiem625.parkcleaner.components.TextureComponent;
 import com.tiem625.parkcleaner.components.VelocityComponent;
 import com.tiem625.parkcleaner.domain.Position;
-import com.tiem625.parkcleaner.ecs.ECS;
+import com.tiem625.parkcleaner.ecsbase.ECS;
 import com.tiem625.parkcleaner.systems.MovePositionsSystem;
 import com.tiem625.parkcleaner.testsupport.ComponentAssertions;
 import org.junit.jupiter.api.*;

@@ -1,4 +1,4 @@
-package com.tiem625.parkcleaner.ecs;
+package com.tiem625.parkcleaner.ecsbase;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;

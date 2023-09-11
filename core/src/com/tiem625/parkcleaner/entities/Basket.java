@@ -1,11 +1,11 @@
-package com.tiem625.parkcleaner.basket;
+package com.tiem625.parkcleaner.entities;
 
 import com.tiem625.parkcleaner.components.PlayerInputComponent;
 import com.tiem625.parkcleaner.components.PositionComponent;
 import com.tiem625.parkcleaner.components.TextureComponent;
 import com.tiem625.parkcleaner.components.VelocityComponent;
 import com.tiem625.parkcleaner.domain.Position;
-import com.tiem625.parkcleaner.ecs.EntitySupport;
+import com.tiem625.parkcleaner.ecsbase.EntitySupport;
 
 public class Basket extends EntitySupport {
 

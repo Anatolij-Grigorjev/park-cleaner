@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.tiem625.parkcleaner.components.PlayerInputComponent;
 import com.tiem625.parkcleaner.domain.GameKey;
-import com.tiem625.parkcleaner.ecs.ECS;
+import com.tiem625.parkcleaner.ecsbase.ECS;
 
 import java.util.Set;
 
