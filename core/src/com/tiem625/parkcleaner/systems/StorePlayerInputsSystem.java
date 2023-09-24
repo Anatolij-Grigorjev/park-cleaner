@@ -4,11 +4,14 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
+import com.tiem625.parkcleaner.Inputs;
 import com.tiem625.parkcleaner.components.PlayerInputComponent;
 import com.tiem625.parkcleaner.domain.GameKey;
 import com.tiem625.parkcleaner.ecsbase.ECS;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class StorePlayerInputsSystem extends IteratingSystem {
 
@@ -28,7 +31,8 @@ public class StorePlayerInputsSystem extends IteratingSystem {
     }
 
     private Set<GameKey> scanPressedKeys() {
-
-        return Set.of();
+        return Inputs.current().stream()
+                .filter(gameKey -> Gdx.input.isKeyPressed(gameKey.keyBinding()))
+                .collect(Collectors.toSet());
     }
 }

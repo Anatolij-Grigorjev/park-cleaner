@@ -30,6 +30,7 @@ public class GdxHeadlessSupport implements ApplicationListener, BeforeEachCallba
         //create shaders for shape renderer
         when(Gdx.gl20.glCreateShader(anyInt())).thenReturn(0);
         Gdx.files = new GdxFilesHeadlessSpy(Gdx.files);
+        Gdx.input = new GdxInputHeadlessMock();
     }
 
     @Override
