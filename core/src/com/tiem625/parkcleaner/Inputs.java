@@ -1,6 +1,5 @@
 package com.tiem625.parkcleaner;
 
-import com.badlogic.gdx.Input;
 import com.tiem625.parkcleaner.domain.GameKey;
 
 import java.util.Collections;
@@ -11,7 +10,7 @@ public class Inputs {
 
     private static final Set<GameKey> DEFAULT_MAPPINGS = Collections.unmodifiableSet(Set.of(
             //test key action used in tests
-            new GameKey("TestAction", Input.Keys.T)
+            GameKey.TEST_ACTION
     ));
 
     private static final Set<GameKey> CURRENT_MAPPINGS = new HashSet<>(DEFAULT_MAPPINGS);
