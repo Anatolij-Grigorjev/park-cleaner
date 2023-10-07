@@ -11,4 +11,12 @@ public record Position(float x, float y) {
     public Position translatedBy(float x, float y) {
         return new Position(this.x + x, this.y + y);
     }
+
+    public Position same() {
+        return of(x, y);
+    }
+
+    public Origin asOrigin() {
+        return new Origin(same(), Scale.ORIGINAL, Rotation.NONE);
+    }
 }
