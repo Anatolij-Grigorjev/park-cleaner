@@ -8,7 +8,7 @@ public record Rotation(float amount, Direction direction) {
         return new Rotation(Math.abs(directedRotation), Direction.ofRotation(directedRotation));
     }
 
-    public float asDirectedAmount() {
+    public float directed() {
         return amount * direction.amountMultiplier;
     }
 
