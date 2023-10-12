@@ -6,14 +6,15 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.tiem625.parkcleaner.components.DrawRegionComponent;
 import com.tiem625.parkcleaner.components.PositionComponent;
+import com.tiem625.parkcleaner.components.ScreenOrderComponent;
 import com.tiem625.parkcleaner.components.TextureComponent;
 
 import static java.util.Objects.requireNonNull;
 
 public class DrawTexturesSystem extends IteratingSystem {
 
-    private static final Family DRAWABLE_ENTITIES = Family
-            .all(TextureComponent.class, PositionComponent.class, DrawRegionComponent.class)
+    public static final Family DRAWABLE_ENTITIES = Family
+            .all(TextureComponent.class, PositionComponent.class, DrawRegionComponent.class, ScreenOrderComponent.class)
             .get();
     private final SpriteBatch spriteBatch;
 

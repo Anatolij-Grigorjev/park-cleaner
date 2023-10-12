@@ -3,16 +3,16 @@ package com.tiem625.parkcleaner.systems;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.tiem625.parkcleaner.components.DrawRegionComponent;
 import com.tiem625.parkcleaner.components.PositionComponent;
+import com.tiem625.parkcleaner.components.ScreenOrderComponent;
 import com.tiem625.parkcleaner.components.TextureComponent;
 import com.tiem625.parkcleaner.domain.Size;
 import com.tiem625.parkcleaner.testsupport.ECSSupport;
+import com.tiem625.parkcleaner.testsupport.GdxScaffolding;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import static com.tiem625.parkcleaner.testsupport.GdxScaffolding.mockTexture;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class DrawTexturesSystemTests {
@@ -28,11 +28,11 @@ public class DrawTexturesSystemTests {
 
     @Test
     public void draws_entity_texture_in_region() {
-        var entity = ECSSupport.mockEntity(new TextureComponent(), new DrawRegionComponent(), new PositionComponent());
+        var entity = ECSSupport.buildDrawableEntity();
         TextureComponent textureComponent = entity.getComponent(TextureComponent.class);
         int texWidth = 56;
         int texHeight = 44;
-        textureComponent.texture = mockTexture(Size.of(56, 44));
+        textureComponent.texture = GdxScaffolding.mockTexture(Size.of(56, 44));
         DrawRegionComponent drawRegionComponent = entity.getComponent(DrawRegionComponent.class);
         PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
         ECSSupport.setupEngineForEntities(system, entity);
@@ -60,11 +60,12 @@ public class DrawTexturesSystemTests {
     }
 
     @Test
-    public void does_not_draw_textures_without_regions() {
-        var entityOnlyTexture = ECSSupport.mockEntity(new TextureComponent());
-        var entityNoPosition = ECSSupport.mockEntity(new TextureComponent(), new DrawRegionComponent());
-        var entityNoRegion = ECSSupport.mockEntity(new TextureComponent(), new PositionComponent());
-        ECSSupport.setupEngineForEntities(system, entityOnlyTexture, entityNoRegion, entityNoPosition);
+    public void does_not_draw_textures_without_details() {
+        var entityOnlyTexture = ECSSupport.buildEntity(new TextureComponent());
+        var entityNoPosition = ECSSupport.buildEntity(new TextureComponent(), new DrawRegionComponent());
+        var entityNoRegion = ECSSupport.buildEntity(new TextureComponent(), new PositionComponent());
+        var entityNoOrder = ECSSupport.buildEntity(new TextureComponent(), new PositionComponent(), new DrawRegionComponent());
+        ECSSupport.setupEngineForEntities(system, entityOnlyTexture, entityNoRegion, entityNoPosition, entityNoOrder);
 
         system.update(1.0f);
 
@@ -73,6 +74,59 @@ public class DrawTexturesSystemTests {
 
     @Test
     public void draws_textures_sorted_by_proximity() {
-        throw new UnsupportedOperationException("TODO");
+        var entity1 = ECSSupport.buildDrawableEntity();
+        var entity2 = ECSSupport.buildDrawableEntity();
+        entity1.getComponent(ScreenOrderComponent.class).moveBack();
+        entity2.getComponent(ScreenOrderComponent.class).moveCloser();
+        var entity1Tex = GdxScaffolding.mockTexture(Size.COLLAPSED);
+        var entity2Tex = GdxScaffolding.mockTexture(Size.COLLAPSED);
+        entity1.getComponent(TextureComponent.class).texture = entity1Tex;
+        entity2.getComponent(TextureComponent.class).texture = entity2Tex;
+        ECSSupport.setupEngineForEntities(system, entity1, entity2);
+
+        system.update(1.0f);
+
+        //draw entity 1
+        Mockito.verify(spriteBatch).draw(
+                Mockito.eq(entity1Tex),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+
+                Mockito.anyInt(),
+                Mockito.anyInt(),
+                Mockito.anyInt(),
+                Mockito.anyInt(),
+
+                Mockito.anyBoolean(),
+                Mockito.anyBoolean()
+        );
+        //draw entity 2
+        Mockito.verify(spriteBatch).draw(
+                Mockito.eq(entity2Tex),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+                Mockito.anyFloat(),
+
+                Mockito.anyInt(),
+                Mockito.anyInt(),
+                Mockito.anyInt(),
+                Mockito.anyInt(),
+
+                Mockito.anyBoolean(),
+                Mockito.anyBoolean()
+        );
     }
 }
