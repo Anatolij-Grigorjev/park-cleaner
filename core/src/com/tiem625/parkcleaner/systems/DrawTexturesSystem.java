@@ -25,6 +25,6 @@ public class DrawTexturesSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-
+        throw new UnsupportedOperationException("TODO");
     }
 }
