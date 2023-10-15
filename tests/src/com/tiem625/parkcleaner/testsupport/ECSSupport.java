@@ -18,6 +18,12 @@ public class ECSSupport {
         throw new UnsupportedOperationException("static helper");
     }
 
+    public static void clearEngine() {
+        Engine engine = ECS.engine();
+        engine.removeAllSystems();
+        engine.removeAllEntities();
+    }
+
     public static void setupEngineForEntities(EntitySystem system, Entity... entities) {
         Engine engine = ECS.engine();
         engine.addSystem(system);

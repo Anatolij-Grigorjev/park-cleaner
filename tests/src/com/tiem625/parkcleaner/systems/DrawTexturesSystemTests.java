@@ -8,10 +8,7 @@ import com.tiem625.parkcleaner.components.TextureComponent;
 import com.tiem625.parkcleaner.domain.Size;
 import com.tiem625.parkcleaner.testsupport.ECSSupport;
 import com.tiem625.parkcleaner.testsupport.GdxScaffolding;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -24,6 +21,11 @@ public class DrawTexturesSystemTests {
     @BeforeEach
     public void setup() {
         system = new DrawTexturesSystem(spriteBatch);
+    }
+
+    @AfterEach
+    public void clear() {
+        ECSSupport.clearEngine();
     }
 
     @Test
