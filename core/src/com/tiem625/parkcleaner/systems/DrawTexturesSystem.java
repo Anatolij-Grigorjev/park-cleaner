@@ -28,18 +28,16 @@ public class DrawTexturesSystem extends SortedIteratingSystem {
     private static final Family DRAWABLE_ENTITIES = Family
             .all(RENDER_ENTITY_COMPONENTS.toArray(new Class[0]))
             .get();
-    private final SpriteBatch spriteBatch;
     private final EntityRenderer entityRenderer;
 
     public DrawTexturesSystem(SpriteBatch spriteBatch) {
         super(DRAWABLE_ENTITIES, new ScreenOrderComparator());
-        this.spriteBatch = requireNonNull(spriteBatch);
-        this.entityRenderer = new EntityRenderer(spriteBatch);
+        this.entityRenderer = new EntityRenderer(requireNonNull(spriteBatch));
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        entityRenderer.renderEntity(entity);
+        entityRenderer.render(entity);
     }
 
     private static class EntityRenderer {
@@ -53,7 +51,7 @@ public class DrawTexturesSystem extends SortedIteratingSystem {
             this.spriteBatch = spriteBatch;
         }
 
-        public void renderEntity(Entity entity) {
+        public void render(Entity entity) {
             var texture = TextureMapper.get(entity).texture;
             var position = PositionMapper.get(entity).position();
             var drawRegion = DrawRegionMapper.get(entity);
