@@ -95,6 +95,7 @@ nb-configuration.xml
 .gradle/
 gradle-app.setting
 /build/
+/tests/build/
 /android/build/
 /core/build/
 /desktop/build/

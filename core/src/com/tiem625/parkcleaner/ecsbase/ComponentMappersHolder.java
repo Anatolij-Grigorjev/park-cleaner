@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 class ComponentMappersHolder {
 
-    private Map<Class<? extends Component>, ComponentMapper<?>> data;
+    private final Map<Class<? extends Component>, ComponentMapper<?>> data;
 
     ComponentMappersHolder() {
         data = new ConcurrentHashMap<>();
